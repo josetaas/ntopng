@@ -28,3 +28,15 @@ schema:addMetric("num_flows")
 schema = ts_utils.newSchema("iface:drops", {step=1, rrd_fname="drops"})
 schema:addTag("ifid")
 schema:addMetric("packets")
+
+-- ##############################################
+
+schema = ts_utils.newSchema("iface:download", {step=60, rrd_fname="download"})
+schema:addTag("ifid")
+schema:addMetric("bytes")
+
+-- ##############################################
+
+schema = ts_utils.newSchema("iface:upload", {step=60, rrd_fname="upload"})
+schema:addTag("ifid")
+schema:addMetric("bytes")

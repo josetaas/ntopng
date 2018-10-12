@@ -24,6 +24,14 @@ end
 callback_utils.foreachInterface(ifnames, interface_rrd_creation_enabled, function(ifname, ifstats)
    if(enable_second_debug) then print("Processing "..ifname.."\n") end
 
+  if(ifstats["localstats"]["bytes"]["remote2local"] > 0) then
+    ts_utils.append("iface:download", {ifid=ifstats.id, bytes=ifstats["localstats"]["bytes"]["remote2local"]}, when, verbose)
+  end
+
+  if(ifstats["localstats"]["bytes"]["local2remote"] > 0) then
+    ts_utils.append("iface:upload", {ifid=ifstats.id, bytes=ifstats["localstats"]["bytes"]["local2remote"]}, when, verbose)
+  end
+
    -- Traffic stats
    ts_utils.append("iface:traffic", {ifid=ifstats.id, bytes=ifstats.stats.bytes}, when)
    ts_utils.append("iface:packets", {ifid=ifstats.id, packets=ifstats.stats.packets}, when)
