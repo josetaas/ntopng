@@ -40,12 +40,3 @@ schema:addMetric("bytes")
 schema = ts_utils.newSchema("iface:upload", {step=1, rrd_fname="upload"})
 schema:addTag("ifid")
 schema:addMetric("bytes")
-
--- ##############################################
-
-schema = ts_utils.newSchema("subnet:traffic_per_second", {step=1, rrd_fname="traffic_per_second"})
-schema:addTag("ifid")
-schema:addTag("subnet")
-schema:addMetric("bytes_ingress")
-schema:addMetric("bytes_egress")
-schema:addMetric("bytes_inner")
