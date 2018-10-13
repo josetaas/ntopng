@@ -24,6 +24,13 @@ end
 callback_utils.foreachInterface(ifnames, interface_rrd_creation_enabled, function(ifname, ifstats)
    if(enable_second_debug) then print("Processing "..ifname.."\n") end
 
+  local subnet_stats = interface.getNetworksStats()
+  for subnet,sstats in pairs(subnet_stats) do
+    ts_utils.append("subnet:traffic_per_second", {ifid=ifstats.id, subnet=subnet,
+              bytes_ingress=sstats["ingress"], bytes_egress=sstats["egress"],
+              bytes_inner=sstats["inner"]}, when)
+  end
+
    if(ifstats["localstats"]["bytes"]["remote2local"] > 0) then
        ts_utils.append("iface:download", {ifid=ifstats.id, bytes=ifstats["localstats"]["bytes"]["remote2local"]}, when)
    end
